@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'dart:ffi';
+
 // To parse this JSON data, do
 //
 //     final employee = employeeFromJson(jsonString);
@@ -10,14 +12,16 @@ String employeeToJson(Employee data) => json.encode(data.toJson());
 
 class Employee {
   Employee({
-    this.name,
-    this.numberOfHour,
-    this.hourCost,
+    this.id,
+    required this.name,
+    required this.numberOfHour,
+    required this.hourCost,
   });
 
+  Float? id;
   String name;
-  int numberOfHour;
-  int hourCost;
+  int? numberOfHour;
+  int? hourCost;
 
   factory Employee.fromJson(Map<String, dynamic> json) => Employee(
         name: json["name"],

@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
+import 'package:kitprod/pages/employee_page.dart';
+//import 'package:kitprod/pages/home_page.dart';
 import 'package:kitprod/providers/employee.dart';
 import 'package:kitprod/providers/mydata.dart';
 
@@ -13,7 +15,7 @@ class EmployeeFormPage extends StatefulWidget {
 }
 
 class _EmployeeFormPageState extends State<EmployeeFormPage> {
-  String result;
+  late String result;
 
   @override
   Widget build(BuildContext context) {
@@ -56,17 +58,20 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
                 ),
                 ElevatedButton(
                   onPressed: () async {
-                    Employee obj = Employee(
+                    Employee? obj = Employee(
+                        hourCost: int.tryParse(txtcost.text.trim()),
                         name: txtname.text.trim(),
-                        numberOfHour: int.tryParse(txtnumber.text.trim()),
-                        hourCost: int.tryParse(txtcost.text.trim()));
+                        numberOfHour: int.tryParse(txtnumber.text.trim()));
+
                     var body = jsonEncode(obj.toJson());
+                    print(body);
                     obj = await insertEmployee(body);
+                    print(obj);
                     setState(() {
                       if (obj != null) {
-                        result = obj.name;
+                        Navigator.pushNamed(context, EmployeePage.routeName);
                       } else {
-                        return "Can not complete";
+                        return null;
                       }
                     });
                   },
@@ -86,11 +91,15 @@ class _EmployeeFormPageState extends State<EmployeeFormPage> {
     );
   }
 
-  Future<Employee> insertEmployee(String body) async {
+  Future<Employee?> insertEmployee(String body) async {
     final api =
-        Uri.parse('http://10.72.10.133:6039/employees?idExploitation=1');
-    var response = await http
-        .post(api, body: body, headers: {'Content-Type': 'application/json'});
+        Uri.parse('https://dddc8cea5e92.ngrok.io/employees?idExploitation=3');
+    var response = await http.post(api, body: body, headers: {
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
+    });
+    print(response);
+    print(response.statusCode);
     if (response.statusCode == 200) {
       return Employee.fromJson(json.decode(response.body));
     } else {

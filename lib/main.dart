@@ -4,7 +4,7 @@ import 'package:kitprod/pages/employee_page.dart';
 import 'package:kitprod/pages/home_page.dart';
 import 'package:kitprod/pages/login_page.dart';
 //import 'package:kitprod/pages/menu_exploitation_page.dart';
-// import 'package:kitprod/pages/menu_page.dart';
+//import 'package:kitprod/pages/menu_page.dart';
 // import 'package:kitprod/pages/sign_page.dart';
 
 void main() {
@@ -23,7 +23,8 @@ class MyApp extends StatelessWidget {
       routes: {
         LoginPage.routeName: (context) => LoginPage(),
         HomePage.routeName: (context) => HomePage(),
-        EmployeeFormPage.routeName: (context) => EmployeeFormPage()
+        EmployeeFormPage.routeName: (context) => EmployeeFormPage(),
+        EmployeePage.routeName: (context) => EmployeePage()
       },
     );
   }

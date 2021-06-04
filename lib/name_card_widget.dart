@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 
 class NameCardWidget extends StatelessWidget {
   const NameCardWidget({
-    Key key,
-    @required this.myText,
-    @required TextEditingController nameController,
-  })  : _nameController = nameController,
+    required Key key,
+    required this.myText,
+    required TextEditingController nameController,
+  })   : _nameController = nameController,
         super(key: key);
 
   final String myText;
